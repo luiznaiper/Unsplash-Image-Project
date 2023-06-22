@@ -1,7 +1,13 @@
+import Gallery from './Gallery'
+import SearchForm from './SearchForm'
+import ThemeToggle from './ThemeToggle'
+
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <ThemeToggle />
+      <SearchForm />
+      <Gallery />
     </>
   )
 }
