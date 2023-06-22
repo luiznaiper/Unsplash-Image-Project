@@ -1,8 +1,23 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
-const AppContext = createContext()
+interface IAppContext {
+  isDarkTheme: boolean
+  toggleDarkTheme: () => void
+}
 
-export const AppProvider = ({ children }) => {
+interface AppProviderProps {
+  children: ReactNode
+}
+
+const AppContext = createContext<IAppContext | undefined>(undefined)
+
+export const AppProvider = ({ children }: AppProviderProps) => {
   const [isDarkTheme, setIsDarkTheme] = useState(false)
 
   const toggleDarkTheme = () => {
@@ -22,4 +37,10 @@ export const AppProvider = ({ children }) => {
   )
 }
 
-export const useGlobalContext = () => useContext(AppContext)
+export const useGlobalContext = (): IAppContext => {
+  const context = useContext(AppContext)
+  if (!context) {
+    throw new Error('useGlobalContext must be used within AppProvider')
+  }
+  return context
+}
