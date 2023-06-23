@@ -1,7 +1,11 @@
+import React from 'react'
+
 const SearchForm = () => {
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const searchValue = e.target.elements.search.value
+    const form = e.currentTarget
+    const searchValue = (form.elements.namedItem('search') as HTMLInputElement)
+      ?.value
     if (!searchValue) return
     console.log(searchValue)
   }
